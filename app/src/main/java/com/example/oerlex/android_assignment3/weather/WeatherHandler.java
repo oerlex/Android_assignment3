@@ -90,10 +90,10 @@ public class WeatherHandler extends DefaultHandler {
 
 	public static Map<String, String> getCities2Url() {
 		Map<String, String> url2city = new HashMap<>();
-		url2city.put("Växjö", "http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml");
-		url2city.put("Hamburg", "http://www.yr.no/sted/Tyskland/Hamburg/Hamburg/forecast.xml");
-		url2city.put("Tokyo", "http://www.yr.no/sted/Japan/Tokyo/Tokyo/forecast.xml");
-		url2city.put("Ibiza", "http://www.yr.no/sted/Spania/Balearene/Ibiza/forecast.xml");
+		url2city.put("vaxjo", "http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml");
+		url2city.put("hamburg", "http://www.yr.no/sted/Tyskland/Hamburg/Hamburg/forecast.xml");
+		url2city.put("toyko", "http://www.yr.no/sted/Japan/Tokyo/Tokyo/forecast.xml");
+		url2city.put("ibiza", "http://www.yr.no/sted/Spania/Balearene/Ibiza/forecast.xml");
 
 		return url2city;
 	}

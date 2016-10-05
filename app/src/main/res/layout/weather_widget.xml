@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/background">
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/backgroundTextView"
@@ -14,31 +14,44 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_widget_city"
+            android:id="@+id/textviewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="2sp"
-            android:gravity="center"
-            android:layout_weight="1.03" />
+            android:gravity="center"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/ll_weather_widget"
             android:layout_width="match_parent"
-            android:layout_height="581dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center_horizontal|center_vertical">
 
+            <ImageView
+                android:id="@+id/imageviewIcon"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/textviewTemperature"
+                android:layout_width="40sp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TEMPERATURE"/>
+
             <Button
-                android:id="@+id/btn_widget_update"
+                android:id="@+id/btnUpdate"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:text="Update"
-                android:layout_gravity="center"/>
+                android:text="FUCK"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:background="@color/colorAccent"/>
 
         </LinearLayout>
     </LinearLayout>
