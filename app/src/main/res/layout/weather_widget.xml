@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/backgroundTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_widget_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2sp"
+            android:gravity="center"
+            android:layout_weight="1.03" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ll_weather_widget"
+            android:layout_width="match_parent"
+            android:layout_height="581dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal|center_vertical">
+
+            <Button
+                android:id="@+id/btn_widget_update"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:text="Update"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

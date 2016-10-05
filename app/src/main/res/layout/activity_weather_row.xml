@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:focusable="true"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:layout_below="@+id/date"/>
+
+    <TextView
+        android:id="@+id/temperature"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/time"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/windspeed"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/temperature"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/rain"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/windspeed"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:layout_toRightOf="@+id/rain"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>

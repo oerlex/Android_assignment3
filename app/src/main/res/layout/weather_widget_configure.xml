@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/configure" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/radioButtonGroup">
+        <RadioButton android:id="@+id/vaxjo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Växjö"/>
+        <RadioButton android:id="@+id/hamburg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hamburg"/>
+        <RadioButton android:id="@+id/tokyo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tokyo"/>
+        <RadioButton android:id="@+id/ibiza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ibiza"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/add_widget" />
+
+</LinearLayout>
