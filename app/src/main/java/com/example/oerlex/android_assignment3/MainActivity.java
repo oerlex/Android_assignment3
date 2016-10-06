@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.oerlex.android_assignment3.phone.PhoneActivity;
 import com.example.oerlex.android_assignment3.weather.WorldWeather;
 
 public class MainActivity extends AppCompatActivity
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, WorldWeather.class);
             startActivity(intent);
         } else if (id == R.id.nav_phone) {
+            Intent intent = new Intent(MainActivity.this, PhoneActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_map) {
 
