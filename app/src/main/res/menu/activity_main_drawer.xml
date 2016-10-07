@@ -5,18 +5,20 @@
         <item
             android:id="@+id/nav_weather"
             android:icon="@drawable/sun"
-            android:title="Import" />
+            android:title="Weather" />
         <item
             android:id="@+id/nav_phone"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Phone" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/planet_earth"
-            android:title="Slideshow" />
+            android:title="City Map" />
+        <item
+            android:id="@+id/nav_route"
+            android:icon="@drawable/planet_earth"
+            android:title="City Map" />
 
     </group>
-
-
 
 </menu>

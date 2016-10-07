@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value=" AIzaSyCGqDIxZ40Ot0enQhim5u_23lO1VveP4IM " />
+
         <activity android:name=".weather.WorldWeather" />
 
         <receiver android:name=".weather.WeatherWidget">
@@ -52,6 +57,9 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".map.CityMapActivity" />
+        <activity android:name=".map.RouteMapActivity"></activity>
     </application>
 
 </manifest>

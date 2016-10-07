@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.oerlex.android_assignment3.map.CityMapActivity;
+import com.example.oerlex.android_assignment3.map.RouteMapActivity;
 import com.example.oerlex.android_assignment3.phone.PhoneActivity;
 import com.example.oerlex.android_assignment3.weather.WorldWeather;
 
@@ -90,9 +92,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_phone) {
             Intent intent = new Intent(MainActivity.this, PhoneActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_map) {
-
+            Intent intent = new Intent(MainActivity.this, CityMapActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_route) {
+            Intent intent = new Intent(MainActivity.this, RouteMapActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
