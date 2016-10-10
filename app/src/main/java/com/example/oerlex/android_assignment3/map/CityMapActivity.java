@@ -120,9 +120,4 @@ public class CityMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
     }
-
-
-
-
-
 }

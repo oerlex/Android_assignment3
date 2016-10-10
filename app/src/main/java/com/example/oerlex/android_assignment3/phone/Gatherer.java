@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -19,10 +21,9 @@ public class Gatherer extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         if(bundle == null){
-            return;
         }else{
             String telephoneState = bundle.getString(TelephonyManager.EXTRA_STATE);
-            if( telephoneState.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_RINGING)){
+            if (telephoneState != null && telephoneState.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_RINGING)) {
                 String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
                 String time = new SimpleDateFormat("dd.MM. HH:mm:ss").format(Calendar.getInstance().getTime());
                 WriteReadCalls writeReadCalls = new WriteReadCalls();

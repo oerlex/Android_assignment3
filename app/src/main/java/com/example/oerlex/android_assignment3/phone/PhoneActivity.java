@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.oerlex.android_assignment3.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PhoneActivity extends AppCompatActivity {
@@ -28,8 +29,9 @@ public class PhoneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone);
-
-        ArrayList<String> calls = writeReadCalls.readCalls(this);
+        writeReadCalls = new WriteReadCalls();
+        ArrayList<String> calls = null;
+        calls = writeReadCalls.readFile(this);
         listView = (ListView)findViewById(R.id.listViewCalls);
 
         ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, calls);
@@ -54,10 +56,10 @@ public class PhoneActivity extends AppCompatActivity {
         String number = writeReadCalls.getPhoneNumber(listviewItem);
         String dialing = "tel:" + number;
         switch (item.getItemId()) {
-            case 0:
+            case R.id.call:
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dialing)));
                 return true;
-            case 1:
+            case R.id.message :
                 Intent messageIntent = new Intent(Intent.ACTION_SEND);
                 messageIntent.setType("text/plain");
                 messageIntent.putExtra(Intent.EXTRA_TEXT, number);

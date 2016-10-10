@@ -29,12 +29,9 @@ public class Route {
         return startCity;
     }
 
-
-
     public String getEndCity() {
         return endCity;
     }
-
 
     public LatLng getStartCoordniates() {
         return startCoordniates;
@@ -45,21 +42,12 @@ public class Route {
     }
 
 
-
     public void setStartCoordniates(String startCityLat, String startCityLng) {
         this.startCoordniates = new LatLng(Double.parseDouble(startCityLat), Double.parseDouble(startCityLng));
     }
 
     public void setEndCoordninates(String endCityLat, String endCityLng) {
         this.endCoordninates = new LatLng(Double.parseDouble(endCityLat), Double.parseDouble(endCityLng));;
-    }
-
-    public void setStartCity(String startCity) {
-        this.startCity = startCity;
-    }
-
-    public void setEndCity(String endCity) {
-        this.endCity = endCity;
     }
 
     public ArrayList<LatLng> getCoordinateList() {
