@@ -1,6 +1,7 @@
 package com.example.oerlex.android_assignment3.weather;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +9,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.oerlex.android_assignment3.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,8 +31,6 @@ import com.example.oerlex.android_assignment3.R;
 public class WeatherWidgetConfigureActivity extends Activity {
 
     public String weatherURL="";
-    private static final String PREFS_NAME = "com.example.oerlex.android_assignment3.weather.WeatherWidget";
-    private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private String place;
     private WeatherRetriever weatherRetriever;
@@ -89,12 +94,42 @@ public class WeatherWidgetConfigureActivity extends Activity {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("city_" + mAppWidgetId, place);
-            editor.putString("url_"+mAppWidgetId, weatherURL);
+            editor.putString("url_" + mAppWidgetId, weatherURL);
             System.out.println("1.PutString (city_"+mAppWidgetId+" with value "+place);
             System.out.println("2.PutString (url_"+mAppWidgetId+" with value "+weatherURL);
             editor.apply();
 
+
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+/*
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
+            views.setTextViewText(R.id.textviewName, place);*/
+
+           /* // open weather app on click
+            Intent widgetClickIntent = new Intent(context, WorldWeather.class);
+            widgetClickIntent.putExtra("city", place);
+            widgetClickIntent.putExtra("url",weatherURL);
+            widgetClickIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent pendingIntentWidget = PendingIntent.getActivity(context, mAppWidgetId, widgetClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.backgroundTextView, pendingIntentWidget);
+
+            // refresh on update button click
+            Intent btnClickIntent = new Intent(context, WeatherWidget.class);
+            btnClickIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            btnClickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{mAppWidgetId});
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mAppWidgetId, btnClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.btnUpdate, pendingIntent);
+*/
+
+            new WeatherWidget().onUpdate(context,appWidgetManager,new int[]{mAppWidgetId});
+            //appWidgetManager.updateAppWidget(mAppWidgetId, views);
+
             Intent resultValue = new Intent();
+            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+            setResult(RESULT_OK, resultValue);
+            finish();
+
+          /*  Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
             setResult(RESULT_OK, resultValue);
 
@@ -104,16 +139,9 @@ public class WeatherWidgetConfigureActivity extends Activity {
             sendBroadcast(intent);
 
             System.out.println("ID : "+mAppWidgetId);
-            finish();
+            finish();*/
 
         }
     };
-
-
-
-    public WeatherWidgetConfigureActivity() {
-        super();
-    }
-
 }
 

@@ -53,15 +53,12 @@ import java.util.List;
  */
 
 public class WorldWeather extends AppCompatActivity {
-	public static String TAG = "dv606.weather";
 
 	private WeatherReport report = null;
 	private WeatherAdapter weatherAdapter;
 	private List<WeatherForecast> forecastList = new ArrayList<>();
-	private WeatherRetriever service = null;
 	TextView placeholder;
-	private RecyclerView recyclerView;
-
+	String cityName = "";
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +66,22 @@ public class WorldWeather extends AppCompatActivity {
 		setContentView(R.layout.activity_weather_main);
 		if(networkCheck()) {
 			try {
-				URL url = new URL("http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml");
-				AsyncTask task = new WeatherThread().execute(url);
+				String urlString = "http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml";
+				String cityName = "vaxjo";
+
+				Intent openCityIntent = getIntent();
+
+				if(openCityIntent.getStringExtra("city") != null && openCityIntent.getStringExtra("url")!= null){
+					cityName = openCityIntent.getStringExtra("city");
+					urlString = openCityIntent.getStringExtra("url");
+				}
+
+				placeholder = (TextView) findViewById(R.id.placeholder);
+				placeholder.setText(cityName);
+
+				URL url = new URL(urlString);
+				new WeatherThread().execute(url);
+				//AsyncTask task = new WeatherThread().execute(url);
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
@@ -78,7 +89,6 @@ public class WorldWeather extends AppCompatActivity {
 			Toast.makeText(this, "There is no internet connection available. Please try again later", Toast.LENGTH_SHORT).show();
 		}
 	}
-
 
 	//Checks if the device has a connection to the internet
 	private boolean networkCheck() {
@@ -98,7 +108,7 @@ public class WorldWeather extends AppCompatActivity {
 	private class WeatherThread extends AsyncTask<URL, Void, WeatherReport> {
     	protected WeatherReport doInBackground(URL... urls) {
     		try {
-    			return WeatherHandler.getWeatherReport(urls[0]);
+    			return WeatherHandler.getWeatherReport(urls[0],cityName);
     		} catch (Exception e) {
     			throw new RuntimeException(e);
     		}
@@ -114,8 +124,6 @@ public class WorldWeather extends AppCompatActivity {
 			Toast.makeText(getApplicationContext(), "WeatherThread task finished", Toast.LENGTH_LONG).show();
     		report = result;
 			RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-			placeholder = (TextView) findViewById(R.id.placeholder);
-			placeholder.setText(report.getCity() + "(" + report.getCountry() + ")");
 
 			weatherAdapter = new WeatherAdapter(forecastList);
 			RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

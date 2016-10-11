@@ -23,6 +23,8 @@ import java.util.List;
 public class WeatherRetriever extends Service {
     public int appID;
     private WeatherReport report = null;
+    private WeatherAdapter weatherAdapter;
+    private String city;
 
     private List<WeatherForecast> forecastList = new ArrayList<>();
 
@@ -32,14 +34,15 @@ public class WeatherRetriever extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        System.out.println("Beginning ");
         // get weather data
         appID = intent.getIntExtra("appID", -1);
+        city = intent.getStringExtra("city");
         String cityURL = intent.getStringExtra("url");
         System.out.println("Service: city url = "+ cityURL);
         if (cityURL != null && !cityURL.isEmpty()) {
             try {
                 URL url = new URL(cityURL);
-                System.out.println("CITY URL : "+url);
                 new WeatherThread().execute(url);
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -48,10 +51,10 @@ public class WeatherRetriever extends Service {
         return Service.START_NOT_STICKY;
     }
 
-  private class WeatherThread extends AsyncTask<URL, Void, WeatherReport> {
+  public class WeatherThread extends AsyncTask<URL, Void, WeatherReport> {
         protected WeatherReport doInBackground(URL... urls) {
             try {
-                return WeatherHandler.getWeatherReport(urls[0]);
+                return WeatherHandler.getWeatherReport(urls[0],city);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -65,14 +68,31 @@ public class WeatherRetriever extends Service {
         protected void onPostExecute(WeatherReport report) {
             System.out.println("In the postexecute");
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(WeatherRetriever.this);
-            RemoteViews views = new RemoteViews(getPackageName(), R.layout.activity_weather_main);
+            RemoteViews views = new RemoteViews(getPackageName(), R.layout.weather_widget);
             WeatherForecast forecast = report.iterator().next();
-            views.setTextViewText(R.id.temperature, String.valueOf(forecast.getTemperature()) + "°C");
-            //views.setImageViewResource(R.id.imageView, WeatherHandler.getImage(forecast.getWeatherCode(), forecast.getStartHHMM()));
+            views.setTextViewText(R.id.textviewTemperature, String.valueOf(forecast.getTemperature()) + "°C");
+            int weatherCode = setWidgetImage(forecast);
+            views.setImageViewResource(R.id.imageviewIcon, weatherCode);
+            views.setTextViewText(R.id.textviewName, report.getCity());
 
             appWidgetManager.updateAppWidget(appID, views);
         }
 
 
+
+      protected int setWidgetImage(WeatherForecast forecast){
+          int weatherCode = forecast.getWeatherCode();
+          if(weatherCode==1){
+             return R.drawable.sun;
+          }else if(weatherCode==2 || weatherCode==3){
+              return R.drawable.cloudy_1;
+          }else if(weatherCode==4){
+              return R.drawable.cloudy;
+          }else if(weatherCode==40 || weatherCode==5 || weatherCode==41 || weatherCode==24){
+             return R.drawable.rain_1;
+          }else{
+              return R.drawable.cloudy;
+          }
+      }
     }
 }

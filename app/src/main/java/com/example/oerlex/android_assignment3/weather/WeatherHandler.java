@@ -47,9 +47,16 @@ public class WeatherHandler extends DefaultHandler {
 	private static final String TEMP = "temperature";
 	private static final String LAST_UPDATE = "lastupdate";
 	private static final String NEXT_UPDATE = "nextupdate";
-	
-	public static WeatherReport getWeatherReport(URL url) {
-        WeatherHandler handler = new WeatherHandler();
+	private String city;
+
+	public WeatherHandler(String city) {
+		this.city = city;
+	}
+
+
+	public static WeatherReport getWeatherReport(URL url, String city) {
+
+        WeatherHandler handler = new WeatherHandler(city);
         try {
     		URLConnection urlConnection = url.openConnection();
         	InputStream input = urlConnection.getInputStream() ;
@@ -84,19 +91,18 @@ public class WeatherHandler extends DefaultHandler {
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
-		report = new WeatherReport("Vaxjo", "Sweden");
+		switch (city){
+			case "vaxjo":report = new WeatherReport("vaxjo");break;
+			case "hamburg":report = new WeatherReport("hamburg");break;
+			case "tokyo":report = new WeatherReport("tokyo");break;
+			case "ibiza":report = new WeatherReport("ibiza");break;
+			default:report = new WeatherReport("vaxjo");
+
+		}
+
 		//System.out.println("StartDocument");
 	}
 
-	public static Map<String, String> getCities2Url() {
-		Map<String, String> url2city = new HashMap<>();
-		url2city.put("vaxjo", "http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml");
-		url2city.put("hamburg", "http://www.yr.no/sted/Tyskland/Hamburg/Hamburg/forecast.xml");
-		url2city.put("toyko", "http://www.yr.no/sted/Japan/Tokyo/Tokyo/forecast.xml");
-		url2city.put("ibiza", "http://www.yr.no/sted/Spania/Balearene/Ibiza/forecast.xml");
-
-		return url2city;
-	}
 
 	@Override
 	public void endElement(String uri, String localName, String name)

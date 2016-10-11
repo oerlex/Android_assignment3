@@ -35,7 +35,7 @@
                 android:id="@+id/imageviewIcon"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="left"/>
 
             <TextView
                 android:id="@+id/textviewTemperature"
@@ -48,11 +48,10 @@
                 android:id="@+id/btnUpdate"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:text="FUCK"
-                android:layout_gravity="center"
-                android:enabled="false"
+                android:text="Update"
+                android:layout_gravity="right"
                 android:background="@color/colorAccent"
-                android:onClick="Butt"/>
+                android:enabled="true"/>
 
         </LinearLayout>
     </LinearLayout>

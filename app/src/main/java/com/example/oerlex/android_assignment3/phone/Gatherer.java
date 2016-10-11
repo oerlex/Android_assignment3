@@ -20,12 +20,11 @@ public class Gatherer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
-        if(bundle == null){
-        }else{
+        if (bundle != null) {
             String telephoneState = bundle.getString(TelephonyManager.EXTRA_STATE);
             if (telephoneState != null && telephoneState.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_RINGING)) {
                 String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                String time = new SimpleDateFormat("dd.MM. HH:mm:ss").format(Calendar.getInstance().getTime());
+                String time = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
                 WriteReadCalls writeReadCalls = new WriteReadCalls();
                 writeReadCalls.saveCalls(context, time + " " + number);
             }
