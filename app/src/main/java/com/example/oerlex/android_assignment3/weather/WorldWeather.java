@@ -68,18 +68,12 @@ public class WorldWeather extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weather_main);
 		if(networkCheck()) {
-
-
 			try {
 				URL url = new URL("http://www.yr.no/sted/Sverige/Kronoberg/V%E4xj%F6/forecast.xml");
 				AsyncTask task = new WeatherThread().execute(url);
-				//report = new WeatherRetriever().execute(url).get();
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
-
-
-			//report = new WeatherThread().execute(url).get();
 		}else {
 			Toast.makeText(this, "There is no internet connection available. Please try again later", Toast.LENGTH_SHORT).show();
 		}
@@ -100,9 +94,6 @@ public class WorldWeather extends AppCompatActivity {
 			weatherAdapter.notifyDataSetChanged();
 		}
 	}
-
-
-
 
 	private class WeatherThread extends AsyncTask<URL, Void, WeatherReport> {
     	protected WeatherReport doInBackground(URL... urls) {

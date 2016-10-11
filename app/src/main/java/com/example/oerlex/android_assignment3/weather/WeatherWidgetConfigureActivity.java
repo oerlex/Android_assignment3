@@ -104,10 +104,13 @@ public class WeatherWidgetConfigureActivity extends Activity {
             sendBroadcast(intent);
 
             System.out.println("ID : "+mAppWidgetId);
-
             finish();
+
         }
     };
+
+
+
     public WeatherWidgetConfigureActivity() {
         super();
     }

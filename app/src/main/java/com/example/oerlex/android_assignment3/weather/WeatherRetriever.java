@@ -40,7 +40,7 @@ public class WeatherRetriever extends Service {
             try {
                 URL url = new URL(cityURL);
                 System.out.println("CITY URL : "+url);
-               new WeatherThread().execute(url);
+                new WeatherThread().execute(url);
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -63,7 +63,7 @@ public class WeatherRetriever extends Service {
         //After fetching the report this method initializes the recyclerView
         //
         protected void onPostExecute(WeatherReport report) {
-            Toast.makeText(getApplicationContext(), "WeatherThread task finished", Toast.LENGTH_LONG).show();
+            System.out.println("In the postexecute");
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(WeatherRetriever.this);
             RemoteViews views = new RemoteViews(getPackageName(), R.layout.activity_weather_main);
             WeatherForecast forecast = report.iterator().next();

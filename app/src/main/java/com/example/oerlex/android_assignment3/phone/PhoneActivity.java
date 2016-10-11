@@ -55,16 +55,21 @@ public class PhoneActivity extends AppCompatActivity {
 
         String number = writeReadCalls.getPhoneNumber(listviewItem);
         String dialing = "tel:" + number;
+        String message = "sms:" + number;
         switch (item.getItemId()) {
             case R.id.call:
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dialing)));
                 return true;
             case R.id.message :
-                Intent messageIntent = new Intent(Intent.ACTION_SEND);
-                messageIntent.setType("text/plain");
-                messageIntent.putExtra(Intent.EXTRA_TEXT, number);
-                startActivity(Intent.createChooser(messageIntent, "Message that boy"));
-                return false;
+                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse(message));
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, number);
+                Intent chooser = Intent.createChooser(intent, "Send with..");
+            // Verify the intent will resolve to at least one activity
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(chooser);
+                }
+                return super.onContextItemSelected(item);
             default:
                 return super.onContextItemSelected(item);
         }
