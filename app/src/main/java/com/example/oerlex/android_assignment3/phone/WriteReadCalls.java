@@ -49,7 +49,6 @@ public class WriteReadCalls {
         ArrayList<String> calls = new ArrayList<>();
 
         try {
-
             String aDataRow = "";
             String aBuffer = "";
             File myFile = new File("/sdcard/"+"calls.txt");
@@ -74,12 +73,8 @@ public class WriteReadCalls {
         try {
             File myFile = new File("/sdcard/"+"calls.txt");
             myFile.createNewFile();
-            FileOutputStream fOut = new
-
-                    FileOutputStream(myFile);
-            OutputStreamWriter myOutWriter = new
-
-                    OutputStreamWriter(fOut);
+            FileOutputStream fOut = new FileOutputStream(myFile);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
             myOutWriter.append(item);
             myOutWriter.close();
             fOut.close();
@@ -87,8 +82,7 @@ public class WriteReadCalls {
             Toast.makeText(context.getApplicationContext(),item + "     saved",Toast.LENGTH_LONG).show();
 
 
-        } catch (FileNotFoundException e) {e.printStackTrace();}
-        catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {e.printStackTrace();}
 
     }
 

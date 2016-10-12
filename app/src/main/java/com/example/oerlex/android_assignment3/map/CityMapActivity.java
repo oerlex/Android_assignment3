@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -26,7 +27,6 @@ import java.util.HashMap;
 public class CityMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ArrayList<String> allCities = new ArrayList<>();
-    private HashMap<String, String> markerCity = new HashMap<>();
     private Toast distanceToast;
 
     @Override
@@ -71,7 +71,6 @@ public class CityMapActivity extends AppCompatActivity implements OnMapReadyCall
         for(String city : allCities){
             String[] cityAttributes = city.split(";");
             Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng( Double.valueOf(cityAttributes[1]), Double.valueOf(cityAttributes[2]))));
-            markerCity.put(marker.getId(),cityAttributes[0]);
             markers.add(marker);
         }
 
@@ -87,37 +86,41 @@ public class CityMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-            @Override
-            public void onCameraMoveStarted(int i) {
 
-                String sCity = "";
-                float sWay = Float.MAX_VALUE;
-                float distances[] = new float[1];
-                LatLng latLng =   googleMap.getCameraPosition().target;;
-                double lat = latLng.latitude;
-                double lng = latLng.longitude;
 
-                for(String city : allCities){
-                    String[] cityAtt =  city.split(";");
-                    Location.distanceBetween(lat,lng, Double.valueOf(cityAtt[1]), Double.valueOf(cityAtt[2]), distances);
-                    if(distances[0] < sWay){
-                        sWay = distances[0];
-                        sCity = cityAtt[0];
+
+            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                @Override
+                public void onCameraChange(CameraPosition cameraPosition) {
+
+
+                        String sCity = "";
+                        float sWay = Float.MAX_VALUE;
+                        float distances[] = new float[1];
+                        LatLng latLng =   googleMap.getCameraPosition().target;;
+                        double lat = latLng.latitude;
+                        double lng = latLng.longitude;
+
+                        for(String city : allCities){
+                            String[] cityAtt =  city.split(";");
+                            Location.distanceBetween(lat,lng, Double.valueOf(cityAtt[1]), Double.valueOf(cityAtt[2]), distances);
+                            if(distances[0] < sWay){
+                                sWay = distances[0];
+                                sCity = cityAtt[0];
+                            }
+                        }
+
+                        sWay = sWay / 1000;
+                        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                        String dong = decimalFormat.format(sWay);
+                        if(dong.contains(","))
+                            dong = dong.replaceAll(",",".");
+                        sWay = Float.valueOf(dong);
+
+                        if (distanceToast != null) distanceToast.cancel();
+                        distanceToast = Toast.makeText(CityMapActivity.this, "The closest city is" + sCity + ", " + sWay + "km", Toast.LENGTH_SHORT);
+                        distanceToast.show();
                     }
-                }
-
-                sWay = sWay / 1000;
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String dong = decimalFormat.format(sWay);
-                if(dong.contains(","))
-                   dong = dong.replaceAll(",",".");
-                sWay = Float.valueOf(dong);
-
-                if (distanceToast != null) distanceToast.cancel();
-                distanceToast = Toast.makeText(CityMapActivity.this, "The closest city is" + sCity + ", " + sWay + "km", Toast.LENGTH_SHORT);
-                distanceToast.show();
-            }
-        });
+                });
     }
 }

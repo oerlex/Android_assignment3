@@ -34,13 +34,9 @@ public class WeatherWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-            System.out.println("ID : "+appWidgetId);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String city_name = preferences.getString("city_" + appWidgetId, "");
             String url_city = preferences.getString("url_"+ appWidgetId,"");
-            System.out.println("1.GetString (city_"+appWidgetId+" with value "+city_name);
-            System.out.println("2.GetString (url_"+appWidgetId+" with value "+url_city);
-            System.out.println("About to initialize the buttons");
 
             // open weather app on click
             Intent openAppIntent = new Intent(context, WorldWeather.class);
@@ -85,13 +81,5 @@ public class WeatherWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-  /* @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        if(intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)){
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            appWidgetManager.updateAppWidget(new ComponentName(context.getPackageName(), this.getClass().getName()), views);
-        }
-    }*/
 }
 

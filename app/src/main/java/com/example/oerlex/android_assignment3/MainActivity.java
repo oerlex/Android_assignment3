@@ -19,8 +19,7 @@ import com.example.oerlex.android_assignment3.map.RouteMapActivity;
 import com.example.oerlex.android_assignment3.phone.PhoneActivity;
 import com.example.oerlex.android_assignment3.weather.WorldWeather;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +27,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -80,29 +61,25 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_weather) {
-            Intent intent = new Intent(MainActivity.this, WorldWeather.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_phone) {
-            Intent intent = new Intent(MainActivity.this, PhoneActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_map) {
-            Intent intent = new Intent(MainActivity.this, CityMapActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.nav_route) {
-            Intent intent = new Intent(MainActivity.this, RouteMapActivity.class);
-            startActivity(intent);
-        }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public void openWeatherIntent(View view){
+        Intent weatherIntent = new Intent(this, WorldWeather.class);
+        startActivity(weatherIntent);
+    }
+
+    public void openPhoneIntent(View view){
+        Intent phoneIntent = new Intent(this, PhoneActivity.class);
+        startActivity(phoneIntent);
+    }
+
+    public void openCityIntent(View view){
+        Intent cityIntent = new Intent(this, CityMapActivity.class);
+        startActivity(cityIntent);
+    }
+
+    public void openRouteIntent(View view){
+        Intent routeIntent = new Intent(this, RouteMapActivity.class);
+        startActivity(routeIntent);
     }
 }

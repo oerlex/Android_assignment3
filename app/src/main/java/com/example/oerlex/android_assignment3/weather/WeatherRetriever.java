@@ -34,12 +34,10 @@ public class WeatherRetriever extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        System.out.println("Beginning ");
         // get weather data
         appID = intent.getIntExtra("appID", -1);
         city = intent.getStringExtra("city");
         String cityURL = intent.getStringExtra("url");
-        System.out.println("Service: city url = "+ cityURL);
         if (cityURL != null && !cityURL.isEmpty()) {
             try {
                 URL url = new URL(cityURL);
@@ -74,7 +72,7 @@ public class WeatherRetriever extends Service {
             int weatherCode = setWidgetImage(forecast);
             views.setImageViewResource(R.id.imageviewIcon, weatherCode);
             views.setTextViewText(R.id.textviewName, report.getCity());
-
+            views.setTextViewText(R.id.textviewWindSpeed, String.valueOf(forecast.getWindSpeed())+"m/s");
             appWidgetManager.updateAppWidget(appID, views);
         }
 
